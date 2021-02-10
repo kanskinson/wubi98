@@ -5,7 +5,7 @@ schema:
   schema_id: wubi98_ci
   name: "五笔98"
   version: "6.0"
-  hide_in_ui: true
+  hide_in_ui: false
   author:
     - 王永民
   description: |

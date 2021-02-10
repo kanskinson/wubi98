@@ -5,7 +5,7 @@ schema:
   schema_id: wubi98_dz
   name: "五笔98单字"
   version: "6.0"
-  hide_in_ui: false
+  hide_in_ui: true
   author:
     - 王永民
   description: |

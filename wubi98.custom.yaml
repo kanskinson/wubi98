@@ -1,3 +1,4 @@
 patch:
   "style/font_face": "98WB-1"
   "style/label_format": "%s."  
+  "style/layout/min_width": 75

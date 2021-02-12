@@ -18,9 +18,6 @@ schema:
 switches:
   - name: ascii_mode
     reset: 0
-  - name: zh_trad
-    reset: 0
-    states: [ 简,繁 ]
   - name: 98wb_spelling
     reset: 1    
     states: [ 隐,显 ]    
@@ -33,7 +30,6 @@ switches:
 engine:
   filters:
     - charset_filter@gb2312  
-    - simplifier
     - "reverse_lookup_filter@ci_reverse_lookup"
     - "simplifier@98wb_spelling"
     - "simplifier@u_pinyin"
@@ -130,11 +126,6 @@ zhuyin_fix:
   tips: "〔以形查音〕"
   tag: zhuyin_fix
 
-simplifier:
-  opencc_config: s2t.json
-  option_name: zh_trad
-
-
 98wb_spelling:
   opencc_config: 98wb_spelling.json
   option_name: 98wb_spelling
@@ -193,11 +184,6 @@ key_binder:
     - {accept: apostrophe, send: 3, when: has_menu}
     - {accept: space, send: Escape, when: composing}
     - {accept: space, send: space, when: has_menu}
-    - {accept: Return, send: Escape, when: composing}
-    - {accept: Return, send: Escape, when: has_menu}
-    - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+dollar", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+F", toggle: zh_trad, when: always}
     - {accept: "Control+Shift+H", toggle: 98wb_spelling, when: always}
     - {accept: "Control+Shift+U", toggle: gb2312, when: always} 
 

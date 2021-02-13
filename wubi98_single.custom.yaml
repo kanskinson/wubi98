@@ -1,0 +1,7 @@
+patch:
+  "style/font_face": "wubi_big"
+  "style/label_format": "%s."  
+  "style/layout/min_width": 75
+  "style/hide_panel_single_result": true
+  "style/inline_preedit": true
+  "style/preedit_type": preview

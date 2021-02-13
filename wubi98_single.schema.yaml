@@ -1,0 +1,113 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: wubi98_single
+  name: "五笔98-盲打"
+  version: "5.0"
+  hide_in_ui: false
+  author:
+    - 王永民
+  description: |
+    五笔98版，该模式下字会直接上屏，除非候选项多于1个。
+  dependencies:
+    - pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 0  
+  - name: u_pinyin
+    reset: 1
+  - name: gb2312
+    reset: 0
+    states: [ 扩,常 ]
+    
+engine:
+  filters:
+    - charset_filter@gb2312  
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - table_translator
+    - "table_translator@fixed"
+    - "history_translator@history"
+    - "lua_translator@time_date"
+speller:
+  auto_select: true
+  auto_clear: max_length
+  delimiter: "`"
+  max_code_length: 4
+  
+translator:
+  dictionary: wubi98
+  db_class: tabledb
+  initial_quality: 100000
+  enable_charset_filter: false
+  enable_sentence: false
+  enable_encoder: false
+  encode_commit_history: false
+  max_phrase_length: 2
+  enable_completion: false
+  enable_user_dict: false
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+
+fixed:
+  __include: /translator
+  initial_quality: 1000
+  enable_encoder: true
+  enable_user_dict: true
+
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    mkst: "^[a-y]*`[a-y`]*$"
+    punct: "^/([0-9]0?|[A-Za-z]+)$"
+    rvlk1: "^z[a-z]*'?$"
+    rvlk2: "^z[a-z]*'?$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    zhuyin_fix: "~[a-y]*?$"
+	
+charset_filter:
+  option_name: gb2312
+  
+history:
+  input: z
+  size: 1
+  initial_quality: 1  
+
+key_binder:
+  bindings:
+    - { when: has_menu, accept: Left, send: Up }
+    - { when: has_menu, accept: Right, send: Down }
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: semicolon, send: 2, when: has_menu}
+    - {accept: apostrophe, send: 3, when: has_menu}
+    - {accept: space, send: Escape, when: composing}
+    - {accept: space, send: space, when: has_menu}
+    - {accept: "Control+Shift+U", toggle: gb2312, when: always} 
+
+punctuator:
+  import_preset: symbols
+  
+menu:
+  page_size: 9  
